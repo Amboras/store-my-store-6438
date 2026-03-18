@@ -147,7 +147,8 @@ export default async function ({ container }: any) {
 
     const storefrontEnvPath = join(process.cwd(), "..", "storefront", ".env.local")
 
-    const envContent = `NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000
+    const backendPort = process.env.BACKEND_PORT || '9000';
+    const envContent = `NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:${backendPort}
 NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=${apiKey.token}
 # Auto-generated on first run - linked to "${salesChannel.name}"
 `
