@@ -4,35 +4,37 @@
 
 @layer base {
   :root {
-    --background: 40 20% 98%;
-    --foreground: 0 0% 10%;
-    --muted: 40 10% 94%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 35 40% 50%;
+    --background: 0 0% 99%;
+    --foreground: 230 25% 10%;
+    --muted: 230 15% 95%;
+    --muted-foreground: 230 10% 50%;
+    --accent: 248 100% 70%;
     --accent-foreground: 0 0% 100%;
-    --border: 40 10% 88%;
-    --ring: 35 40% 50%;
-    --primary: 0 0% 10%;
+    --border: 230 15% 90%;
+    --ring: 248 100% 70%;
+    --primary: 230 25% 10%;
     --primary-foreground: 0 0% 98%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
 
-    /* Brand colors (dynamically injected from Store.metadata.brand) */
-    /* Access in CSS: var(--brand-primary), var(--brand-secondary) */
-    /* Managed by BrandStyleInjector component */
+    /* TRENDORA Brand Colors */
+    --brand-primary: #6C63FF;
+    --brand-secondary: #1A1A2E;
+    --brand-accent: #E94560;
+    --brand-light: #F0EFFF;
   }
 
   .dark {
-    --background: 0 0% 6%;
-    --foreground: 40 20% 94%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 55%;
-    --accent: 35 45% 55%;
+    --background: 230 30% 6%;
+    --foreground: 230 15% 94%;
+    --muted: 230 20% 12%;
+    --muted-foreground: 230 10% 55%;
+    --accent: 248 100% 70%;
     --accent-foreground: 0 0% 100%;
-    --border: 0 0% 16%;
-    --ring: 35 45% 55%;
-    --primary: 40 20% 94%;
-    --primary-foreground: 0 0% 6%;
+    --border: 230 20% 16%;
+    --ring: 248 100% 70%;
+    --primary: 230 15% 94%;
+    --primary-foreground: 230 30% 6%;
     --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 98%;
   }
@@ -66,39 +68,79 @@
   }
   .link-underline::after {
     content: '';
-    @apply absolute bottom-0 left-0 h-px w-0 bg-foreground transition-all duration-300;
+    @apply absolute bottom-0 left-0 h-px w-0 transition-all duration-300;
+    background-color: var(--brand-primary);
   }
   .link-underline:hover::after {
     @apply w-full;
   }
 
-  /* Brand color utilities - uses colors from Store.metadata.brand */
+  /* Brand color utilities */
   .btn-brand-primary {
-    background-color: var(--brand-primary, hsl(var(--primary)));
+    background-color: var(--brand-primary);
     color: white;
   }
   .btn-brand-primary:hover {
-    opacity: 0.9;
+    opacity: 0.88;
+  }
+
+  .btn-brand-outline {
+    background-color: transparent;
+    border: 2px solid var(--brand-primary);
+    color: var(--brand-primary);
+  }
+  .btn-brand-outline:hover {
+    background-color: var(--brand-primary);
+    color: white;
   }
 
   .text-brand-primary {
-    color: var(--brand-primary, hsl(var(--primary)));
+    color: var(--brand-primary);
   }
 
   .text-brand-secondary {
-    color: var(--brand-secondary, hsl(var(--accent)));
+    color: var(--brand-secondary);
+  }
+
+  .text-brand-accent {
+    color: var(--brand-accent);
   }
 
   .border-brand-primary {
-    border-color: var(--brand-primary, hsl(var(--border)));
+    border-color: var(--brand-primary);
   }
 
   .bg-brand-primary {
-    background-color: var(--brand-primary, hsl(var(--primary)));
+    background-color: var(--brand-primary);
   }
 
   .bg-brand-secondary {
-    background-color: var(--brand-secondary, hsl(var(--accent)));
+    background-color: var(--brand-secondary);
+  }
+
+  .bg-brand-light {
+    background-color: var(--brand-light);
+  }
+
+  .gradient-brand {
+    background: linear-gradient(135deg, var(--brand-primary) 0%, #a78bfa 100%);
+  }
+
+  .gradient-dark {
+    background: linear-gradient(135deg, var(--brand-secondary) 0%, #16213e 100%);
+  }
+
+  /* Badge */
+  .badge-trending {
+    background-color: var(--brand-accent);
+    color: white;
+    @apply text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm;
+  }
+
+  .badge-new {
+    background-color: var(--brand-primary);
+    color: white;
+    @apply text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-sm;
   }
 }
 
@@ -109,26 +151,57 @@ html {
 
 /* Selection color */
 ::selection {
-  @apply bg-accent/20 text-foreground;
+  background-color: rgba(108, 99, 255, 0.2);
+  color: hsl(var(--foreground));
 }
 
 /* Focus styles */
 :focus-visible {
-  @apply outline-2 outline-offset-2 outline-ring;
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 2px;
 }
 
-/* Cookie consent animation */
+/* Animations */
 @keyframes fade-in {
-  from {
-    opacity: 0;
-    transform: translateY(1rem);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-in-right {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+@keyframes slide-out-right {
+  from { transform: translateX(0); }
+  to { transform: translateX(100%); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(108, 99, 255, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(108, 99, 255, 0); }
+}
+@keyframes ticker {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.3s ease-out;
+  animation: fade-in 0.5s ease-out;
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.3s ease-out;
+}
+.animate-slide-out-right {
+  animation: slide-out-right 0.3s ease-out;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+.animate-ticker {
+  animation: ticker 28s linear infinite;
 }
